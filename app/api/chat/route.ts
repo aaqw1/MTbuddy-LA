@@ -24,6 +24,7 @@ export async function POST(req: NextRequest) {
     });
     
     // Fix: Use 'embeddings' instead of 'embedding' to match the EmbedContentResponse structure.
+<<<<<<< HEAD
     const embedding =
       embeddingResponse.embeddings?.values ??
       (embeddingResponse as any).embedding?.values;
@@ -32,6 +33,13 @@ export async function POST(req: NextRequest) {
       console.error("EmbedContent response:", embeddingResponse);
       return NextResponse.json({ error: "Failed to generate embedding" }, { status: 500 });
     }    
+=======
+    const embedding = embeddingResponse.embeddings?.values;
+
+    if (!embedding) {
+      return NextResponse.json({ error: 'Failed to generate embedding' }, { status: 500 });
+    }
+>>>>>>> main
 
     // 2. Query Supabase for relevant chunks
     const { data: documents, error } = await supabase.rpc('match_documents', {

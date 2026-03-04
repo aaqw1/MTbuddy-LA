@@ -1,0 +1,1 @@
+components/Analytics.tsx(3,90): error TS2307: Cannot find module 'recharts' or its corresponding type declarations.
