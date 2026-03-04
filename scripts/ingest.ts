@@ -24,7 +24,7 @@ async function getEmbedding(text: string) {
     }]
   });
   // Access embedding values via the 'embeddings' property
-  return response.embeddings.values;
+  return response.embeddings?.values;
 }
 
 async function ingest() {
