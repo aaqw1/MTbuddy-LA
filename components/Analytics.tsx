@@ -14,11 +14,11 @@ const Analytics: React.FC = () => {
     <div className="max-w-5xl mx-auto space-y-6">
       <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
         <h2 className="text-xl font-bold text-slate-800 mb-4">Similar Permits in Your Area</h2>
-        
+
         <div className="flex gap-4 mb-6">
           <div className="relative flex-1">
-             <Search className="absolute left-3 top-3 text-slate-400" size={18} />
-             <input type="text" placeholder="Search by Zip Code (e.g. 90026)" className="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg" />
+            <Search className="absolute left-3 top-3 text-slate-400" size={18} />
+            <input type="text" placeholder="Search by Zip Code (e.g. 90026)" className="w-full pl-10 pr-4 py-2 border border-slate-300 rounded-lg" />
           </div>
           <select className="border border-slate-300 rounded-lg px-4 py-2">
             <option>Last 12 Months</option>
@@ -30,17 +30,17 @@ const Analytics: React.FC = () => {
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={data}>
               <CartesianGrid strokeDasharray="3 3" vertical={false} />
-              <XAxis dataKey="name" tick={{fontSize: 12}} />
-              <YAxis tick={{fontSize: 12}} />
-              <Tooltip 
-                formatter={(value: number) => [`$${value.toLocaleString()}`, 'Valuation']}
+              <XAxis dataKey="name" tick={{ fontSize: 12 }} />
+              <YAxis tick={{ fontSize: 12 }} />
+              <Tooltip
+                formatter={(value: any) => [value ? `$${Number(value).toLocaleString()}` : '$0', 'Valuation']}
                 contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
               />
               <Bar dataKey="valuation" fill="#3b82f6" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
-        
+
         <p className="text-xs text-slate-500 mt-4 text-center">
           *Data sourced from LADBS Open Data Portal. Valuations are estimates declared at permit issuance.
         </p>
