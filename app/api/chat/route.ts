@@ -22,9 +22,8 @@ export async function POST(req: NextRequest) {
         parts: [{ text: lastMessage }]
       }]
     });
-    
+
     // Fix: Use 'embeddings' instead of 'embedding' to match the EmbedContentResponse structure.
-<<<<<<< HEAD
     const embedding =
       embeddingResponse.embeddings?.values ??
       (embeddingResponse as any).embedding?.values;
@@ -32,14 +31,7 @@ export async function POST(req: NextRequest) {
     if (!embedding) {
       console.error("EmbedContent response:", embeddingResponse);
       return NextResponse.json({ error: "Failed to generate embedding" }, { status: 500 });
-    }    
-=======
-    const embedding = embeddingResponse.embeddings?.values;
-
-    if (!embedding) {
-      return NextResponse.json({ error: 'Failed to generate embedding' }, { status: 500 });
     }
->>>>>>> main
 
     // 2. Query Supabase for relevant chunks
     const { data: documents, error } = await supabase.rpc('match_documents', {
@@ -56,7 +48,7 @@ export async function POST(req: NextRequest) {
     // 3. Construct Context
     let contextString = "";
     if (documents && documents.length > 0) {
-      contextString = documents.map((doc: any) => 
+      contextString = documents.map((doc: any) =>
         `SOURCE: ${doc.metadata?.filename || 'Unknown'} (Page ${doc.metadata?.page || 'N/A'})\nCONTENT: ${doc.content}`
       ).join('\n\n---\n\n');
     }
@@ -95,9 +87,9 @@ export async function POST(req: NextRequest) {
     const responseText = result.text;
 
     // Return as JSON (MVP) - For production, you might want StreamingTextResponse
-    return NextResponse.json({ 
-      role: 'assistant', 
-      content: responseText 
+    return NextResponse.json({
+      role: 'assistant',
+      content: responseText
     });
 
   } catch (err) {
